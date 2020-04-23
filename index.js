@@ -54,12 +54,19 @@ app.use(router.routes()).use(router.allowedMethods());
 async function start() {
   //if running in cloud, get secrets
   //const name = 'projects/229996663812/secrets' + process.env.BRANCH;
-  const name = 'projects/229996663812/secrets/master';
-  const {SecretManagerServiceClient} = require('@google-cloud/secret-manager');
+  const name = "projects/229996663812/secrets/master/versions/1";
+  const {
+    SecretManagerServiceClient,
+  } = require("@google-cloud/secret-manager");
   const client = new SecretManagerServiceClient();
-  const secret = await client.accessSecretVersion({
-    name: 'projects/229996663812/secrets/master/versions/1',
-  });
+  try {
+    const secret = await client.accessSecretVersion({
+      name: name,
+    });
+  } catch (ex) {
+    console.log("cannot access secret", name);
+    console.log(ex);
+  }
   console.log(secret);
 
   // wait for the db
