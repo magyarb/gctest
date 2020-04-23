@@ -52,10 +52,13 @@ router.get("*", async (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 async function start() {
+  console.log('starting')
+  console.log('version', process.env.npm_package_version)
+  console.log('deployment', process.env.K_REVISION)
+  console.log('rtenv', process.env.RTENV)
+  
   //if running in cloud, get secrets
-  //const name = 'projects/229996663812/secrets' + process.env.BRANCH;
-
-  const name = "projects/229996663812/secrets/master/versions/1";
+  const name = process.env.RTENV;
   const {
     SecretManagerServiceClient,
   } = require("@google-cloud/secret-manager");
