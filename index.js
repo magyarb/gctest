@@ -68,9 +68,7 @@ async function start() {
       name: name,
     });
     var genv = JSON.parse(secret.payload.data.toString('utf8'))
-    console.log('genv', genv)
     for(envkey of Object.keys(genv)){
-      console.log('key', envkey)
       process.env[envkey] = genv[envkey]
     }
 
@@ -78,10 +76,6 @@ async function start() {
     console.log("cannot access secret", name);
     console.log(ex);
   }
-
-  console.log('logging ENV')
-  console.log(process.env)
-  console.log('end ENV')
 
   // init then wait for the db
   dbo.init()
