@@ -60,10 +60,10 @@ async function start() {
   } = require("@google-cloud/secret-manager");
   const client = new SecretManagerServiceClient();
   try {
-    const secret = await client.accessSecretVersion({
+    const [secret] = await client.accessSecretVersion({
       name: name,
     });
-    console.log(secret);
+    console.log(secret.payload.data.toString('utf8'));
   } catch (ex) {
     console.log("cannot access secret", name);
     console.log(ex);
