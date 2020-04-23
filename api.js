@@ -28,7 +28,7 @@ router.get("task", async (ctx, next) => {
   const serviceAccountEmail =
     "229996663812-compute@developer.gserviceaccount.com";
   const payload = null;
-  const insec = null
+  const inSeconds = null;
 
   // Construct the fully qualified queue name.
   const parent = client.queuePath(project, location, queue);
