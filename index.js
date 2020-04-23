@@ -68,7 +68,9 @@ async function start() {
       name: name,
     });
     var genv = JSON.parse(secret.payload.data.toString('utf8'))
+    console.log('genv', genv)
     for(envkey of Object.keys(genv)){
+      console.log('key', envkey)
       process.env[envkey] = genv[envkey]
     }
 
