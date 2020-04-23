@@ -58,10 +58,30 @@ router.get("task", async (ctx, next) => {
   console.log(task);
   // Send create task request.
   const request = { parent, task };
-  const [response] = await client.createTask(request);
-  const name = response.name;
 
-  console.log(`Created task ${name}`);
+  try {
+    const [response] = await client.createTask(request);
+    const name = response.name;
+    console.log(`Created task ${name}`);
+  } catch (ex) {
+    console.log(ex);
+    console.log("trying to create queue");
+
+    const [qresponse] = await client.createQueue({
+      // The fully qualified path to the location where the queue is created
+      parent: client.locationPath(project, location),
+      queue: {
+        // The fully qualified path to the queue
+        name: client.queuePath(project, location, queue),
+      },
+    });
+    console.log(`Created queue ${qresponse.name}`);
+
+    //retry
+    const [response] = await client.createTask(request);
+    const name = response.name;
+    console.log(`Created task ${name}`);
+  }
 
   ctx.body = "task queued";
 });
