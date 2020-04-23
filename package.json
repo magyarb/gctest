@@ -19,6 +19,7 @@
   "homepage": "https://github.com/magyarb/gctest#readme",
   "dependencies": {
     "@google-cloud/secret-manager": "^3.0.0",
+    "@google-cloud/tasks": "^2.0.0",
     "@koa/cors": "^3.0.0",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
