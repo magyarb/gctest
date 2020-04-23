@@ -23,7 +23,7 @@ router.get("task", async (ctx, next) => {
   // TODO(developer): Uncomment these lines and replace with your values.
   const project = "crtst-273418";
   const queue = "my-queue";
-  const location = "europe-west4";
+  const location = "europe-west3";
   const url = "https://gctst-nzk3w4wvsa-ez.a.run.app/api/asd";
   const serviceAccountEmail =
     "229996663812-compute@developer.gserviceaccount.com";
