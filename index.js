@@ -54,6 +54,11 @@ app.use(router.routes()).use(router.allowedMethods());
 async function start() {
   //if running in cloud, get secrets
   //const name = 'projects/229996663812/secrets' + process.env.BRANCH;
+  process.env.lofasz = 'ittlofasz';
+  console.log('logging ENV')
+  console.log(process.env)
+  console.log('end ENV')
+
   const name = "projects/229996663812/secrets/master/versions/1";
   const {
     SecretManagerServiceClient,
