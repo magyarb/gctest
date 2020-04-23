@@ -47,27 +47,14 @@ dbo.init = async function () {
 }
 
 async function initSchemas() {
-  var userSchema = new mongoose.Schema(
+  var logSchema = new mongoose.Schema(
     {
-      username: { type: String, required: true },
-      email: { type: String },
-      FamilyName: { type: String },
-      GivenName: { type: String },
-      picture: { type: String },
-      gid: { type: Number },
-      locale: { type: String },
-      password: { type: String },
-      pin: Number,
-      createdBy: { type: String, default: dbo.location },
-      modifiedBy: { type: String, default: dbo.location },
-
-      createdByUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      pub: { type: mongoose.Schema.Types.ObjectId, ref: "Pub" },
+      text: String
     },
     { timestamps: true }
   );
 
-  dbo.models.User = mongoose.model("User", userSchema);
+  dbo.models.Log = mongoose.model("Log", logSchema);
 }
 
 dbo.uuid = function () {

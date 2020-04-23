@@ -3,7 +3,15 @@ const router = new Router();
 const dbo = require("./db");
 
 router.get("asd", (ctx, next) => {
-  ctx.body = "asd!";
+  var log = new dbo.models.Log({
+    text: 'Hello!'
+  });
+
+  log.save();
+
+  console.log(ctx);
+
+  ctx.body = "log saved";
 });
 
 
