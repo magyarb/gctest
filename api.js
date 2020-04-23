@@ -27,7 +27,7 @@ router.get("task", async (ctx, next) => {
   const url = "https://gctst-nzk3w4wvsa-ez.a.run.app/api/asd";
   const serviceAccountEmail =
     "229996663812-compute@developer.gserviceaccount.com";
-  //const payload = 'Hello, World!';
+  const payload = 'Hello, World!';
 
   // Construct the fully qualified queue name.
   const parent = client.queuePath(project, location, queue);
