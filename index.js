@@ -63,11 +63,11 @@ async function start() {
     const secret = await client.accessSecretVersion({
       name: name,
     });
+    console.log(secret);
   } catch (ex) {
     console.log("cannot access secret", name);
     console.log(ex);
   }
-  console.log(secret);
 
   // wait for the db
   //await dbo.wait();
