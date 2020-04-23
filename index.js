@@ -1,3 +1,4 @@
+//running locally
 if (!process.env.PORT) {
   require("dotenv").config();
   console.log("loaded dotenv");
@@ -51,7 +52,16 @@ router.get("*", async (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 async function start() {
-  await dbo.wait();
+  //if running in cloud, get secrets
+  //const name = 'projects/229996663812/secrets' + process.env.BRANCH;
+  const name = 'projects/229996663812/secrets/master';
+  const {SecretManagerServiceClient} = require('@google-cloud/secret-manager');
+  const client = new SecretManagerServiceClient();
+  const secret = await client.getSecret({
+    name: name,
+  });
+  console.log(secret);
+  //await dbo.wait();
   var port = process.env.PORT || 3069;
   server.listen(port);
   console.log("server started", port);

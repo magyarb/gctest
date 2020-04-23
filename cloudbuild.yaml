@@ -17,5 +17,7 @@ steps:
    - 'europe-west4'
    - '--platform'
    - 'managed'
+   - '--set-env-vars'
+   - 'BRANCH=$BRANCH_NAME'
 images:
  - 'gcr.io/$PROJECT_ID/gctst:$COMMIT_SHA'
