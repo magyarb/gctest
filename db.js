@@ -25,7 +25,7 @@ dbo.wait = async function (num = 0) {
   });
 };
 
-async function init() {
+dbo.init = async function () {
   try {
     console.log("connecting to", process.env.dbUrl + "/" + process.env.dbName);
     mongoose.connect(process.env.dbUrl + "/" + process.env.dbName, {
@@ -45,8 +45,6 @@ async function init() {
     console.log(ex);
   }
 }
-
-init();
 
 async function initSchemas() {
   var userSchema = new mongoose.Schema(

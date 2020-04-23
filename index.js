@@ -81,8 +81,9 @@ async function start() {
   console.log(process.env)
   console.log('end ENV')
 
-  // wait for the db
-  //await dbo.wait();
+  // init then wait for the db
+  dbo.init()
+  await dbo.wait();
 
   //start
   var port = process.env.PORT || 3069;
