@@ -57,11 +57,15 @@ async function start() {
   const name = 'projects/229996663812/secrets/master';
   const {SecretManagerServiceClient} = require('@google-cloud/secret-manager');
   const client = new SecretManagerServiceClient();
-  const secret = await client.getSecret({
-    name: name,
+  const secret = await client.accessSecretVersion({
+    name: 'projects/229996663812/secrets/master/versions/1',
   });
   console.log(secret);
+
+  // wait for the db
   //await dbo.wait();
+
+  //start
   var port = process.env.PORT || 3069;
   server.listen(port);
   console.log("server started", port);
