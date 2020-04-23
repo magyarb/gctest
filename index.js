@@ -52,33 +52,35 @@ router.get("*", async (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 async function start() {
-  console.log('starting')
-  console.log('version', process.env.npm_package_version)
-  console.log('deployment', process.env.K_REVISION)
-  console.log('rtenv', process.env.RTENV)
-  
-  //if running in cloud, get secrets
-  const name = process.env.RTENV;
-  const {
-    SecretManagerServiceClient,
-  } = require("@google-cloud/secret-manager");
-  const client = new SecretManagerServiceClient();
-  try {
-    const [secret] = await client.accessSecretVersion({
-      name: name,
-    });
-    var genv = JSON.parse(secret.payload.data.toString('utf8'))
-    for(envkey of Object.keys(genv)){
-      process.env[envkey] = genv[envkey]
-    }
+  console.log("starting");
 
-  } catch (ex) {
-    console.log("cannot access secret", name);
-    console.log(ex);
+  //if running in cloud, get secrets
+  if (process.env.RTENV) {
+    console.log("version", process.env.npm_package_version);
+    console.log("deployment", process.env.K_REVISION);
+    console.log("rtenv", process.env.RTENV);
+    const name = process.env.RTENV || "";
+    try {
+      const {
+        SecretManagerServiceClient,
+      } = require("@google-cloud/secret-manager");
+      const client = new SecretManagerServiceClient();
+
+      const [secret] = await client.accessSecretVersion({
+        name: name,
+      });
+      var genv = JSON.parse(secret.payload.data.toString("utf8"));
+      for (envkey of Object.keys(genv)) {
+        process.env[envkey] = genv[envkey];
+      }
+    } catch (ex) {
+      console.log("cannot access secret", name);
+      console.log(ex);
+    }
   }
 
   // init then wait for the db
-  dbo.init()
+  dbo.init();
   await dbo.wait();
 
   //start
