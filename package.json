@@ -1,6 +1,6 @@
 {
   "name": "gctest",
-  "version": "1.0.0",
+  "version": "1.0.69",
   "description": "A test container for evaluating google cloud run performance",
   "main": "index.js",
   "scripts": {

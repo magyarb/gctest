@@ -54,10 +54,6 @@ app.use(router.routes()).use(router.allowedMethods());
 async function start() {
   //if running in cloud, get secrets
   //const name = 'projects/229996663812/secrets' + process.env.BRANCH;
-  process.env.lofasz = 'ittlofasz';
-  console.log('logging ENV')
-  console.log(process.env)
-  console.log('end ENV')
 
   const name = "projects/229996663812/secrets/master/versions/1";
   const {
@@ -68,11 +64,19 @@ async function start() {
     const [secret] = await client.accessSecretVersion({
       name: name,
     });
-    console.log(secret.payload.data.toString('utf8'));
+    var genv = JSON.parse(secret.payload.data.toString('utf8'))
+    for(envkey of Object.keys(genv)){
+      process.env[envkey] = genv[envkey]
+    }
+
   } catch (ex) {
     console.log("cannot access secret", name);
     console.log(ex);
   }
+
+  console.log('logging ENV')
+  console.log(process.env)
+  console.log('end ENV')
 
   // wait for the db
   //await dbo.wait();

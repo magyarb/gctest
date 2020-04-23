@@ -18,6 +18,6 @@ steps:
    - '--platform'
    - 'managed'
    - '--set-env-vars'
-   - 'BRANCH=$BRANCH_NAME'
+   - 'BRANCH=$_RTENV'
 images:
  - 'gcr.io/$PROJECT_ID/gctst:$COMMIT_SHA'
